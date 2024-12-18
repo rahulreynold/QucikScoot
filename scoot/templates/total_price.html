@@ -1,0 +1,20 @@
+{% extends 'baserent.html' %}
+
+{% block main_block1 %}
+<body>
+    <div class="container">
+        {% if error_message %}
+            <div class="alert alert-danger">
+                <strong>Error:</strong> {{ error_message }}
+            </div>
+        {% else %}
+            <h2>Total Price Calculation for {{ vehicle.name }}</h2>
+            <p><strong>Start Date:</strong> {{ start_date }}</p>
+            <p><strong>End Date:</strong> {{ end_date }}</p>
+            <p><strong>Total Days:</strong> {{ total_days }}</p>
+            <p><strong>Price Per Day:</strong> ${{ vehicle.price }}</p>
+            <h4>Total Price: ${{ total_price }}</h4>
+        {% endif %}
+    </div>
+</body>
+{% endblock %}

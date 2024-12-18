@@ -1,0 +1,16 @@
+{%extends 'baseowner.html'%}
+
+{%block main_block%}
+
+<body>
+    <h1 class="my-4">Welcome, {{ user.username }} (Renter)</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Add Vehicle</button>
+    </form>
+    
+
+</body>
+
+{%endblock%}

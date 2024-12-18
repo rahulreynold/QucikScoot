@@ -1,0 +1,47 @@
+{% extends 'baserent.html' %}
+
+{% block main_block1 %}
+<body>
+
+<div class="container my-5">
+    <h2>
+        {% if available_dates %}
+            Available Vehicles for Rent for the dates {{ available_dates }}
+        {% else %}
+            Available Vehicles for Rent
+        {% endif %}
+    </h2>
+    
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        {% for vehicle in vehicles %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    {% if vehicle.picture %}
+                        <img src="{{ vehicle.picture.url }}" class="card-img-top" alt="{{ vehicle.title }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image for {{ vehicle.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ vehicle.title }}</h5>
+                        <p class="card-text">
+                            <strong>Price:</strong> ${{ vehicle.price }} per day <br>
+                            <strong>Mileage/Range:</strong> {{ vehicle.mileage_or_range }} km <br>
+                            <strong>Category:</strong> {{ vehicle.category.category_type }} <br>
+                            <strong>Vehicle Type:</strong> {{ vehicle.vehicle_type }}
+                        </p>
+                        
+                        
+                        <a href="{% url 'vehiclefull-detail' vehicle.id %}?start_date=2024-12-18&end_date=2024-12-20" class="btn btn-primary">View Details</a>
+
+
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+
+</body>

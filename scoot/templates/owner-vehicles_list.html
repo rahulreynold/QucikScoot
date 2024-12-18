@@ -1,0 +1,40 @@
+{%extends 'baseowner.html'%}
+
+{%block main_block%}
+<body>
+
+<div class="container my-5">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for p in vehicles %}
+            <div class="col">
+                <div class="card shadow-sm h-100">
+                    {% if p.picture %}
+                        <img src="{{ p.picture.url }}" class="card-img-top" alt="{{ p.title }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Image Available">
+                    {% endif %}
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ p.title }}</h5>
+                        <p class="card-text">
+                            <strong>Price:</strong> ${{ p.price }} <br>
+                            <span class="text-muted"><s>${{ p.discounted_price }}</s></span><br>
+                            <strong>Mileage:</strong> {{ p.mileage_or_range }} km <br>
+                            <strong>Category:</strong> {{ p.category.category_type }} <br>
+                            <strong>Vehicle Type:</strong> {{ p.vehicle_type }} <br>
+                            <strong>Description:</strong> {{ p.description }} <br>
+                            <strong>Plate Number:</strong> {{ p.number_plate }}
+                        </p>
+
+                        <a href="{% url 'two-wheeler-edit' p.id %}" class="btn btn-primary btn-sm w-100 mb-2">Edit</a>
+                        <a href="{% url 'two-wheeler-delete' p.id %}" class="btn btn-danger btn-sm w-100 mb-2" 
+                           onclick="return confirm('Are you sure you want to delete this vehicle?');">Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{%endblock%}

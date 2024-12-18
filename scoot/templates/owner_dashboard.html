@@ -1,0 +1,41 @@
+{%extends 'baseowner.html'%}
+
+{%block main_block%}
+<body>
+
+    <div class="container">
+        <h1 class="my-4">Welcome, {{ user.username }} (Owner)</h1>
+
+        <!-- Owner specific content -->
+        <div class="row">
+            <div class="col-md-3">
+                <h3>Manage Your Two-Wheelers</h3>
+                <p>Here you can add, update or remove your two-wheelers available for rent.</p>
+                <a href="{%url 'two-wheeler-add'%}" class="btn btn-primary">Add New Two-Wheeler</a>
+            </div>
+            <div class="col-md-3">
+                <h3>List Your Two-Wheelers</h3>
+                <p>Your Two vheelers</p>
+                <a href="{%url 'two-wheeler-list'%}" class="btn btn-primary">Add New Two-Wheeler</a>
+            </div>
+
+            <div class="col-md-3">
+                <h3>View Bookings</h3>
+                <p>Review the bookings for your vehicles.</p>
+                <a href="#" class="btn btn-info">View Bookings</a>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Your Earnings</h3>
+                <p>Total earnings from rentals: ${{ total_earnings }}</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+{%endblock%}

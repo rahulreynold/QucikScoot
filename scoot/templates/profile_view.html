@@ -1,0 +1,24 @@
+{%extends 'baseowner.html'%}
+
+{%block main_block%}
+<body>
+<div class="container my-5">
+    <h1 class="text-center">Profile Details</h1>
+    <div class="card shadow-sm mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Welcome, {{ profile.user.username }}</h5>
+            <p class="card-text">
+                <strong>Email:</strong> {{ profile.user.email }} <br>
+                {% if profile.avatar %}
+                    <img src="{{ profile.avatar.url }}" alt="Profile Picture" class="img-thumbnail my-3" width="150">
+                {% else %}
+                    <img src="https://via.placeholder.com/150" alt="No Profile Picture" class="img-thumbnail my-3" width="150">
+                {% endif %}
+                <strong>Bio:</strong> {{ profile.bio|default:"No bio provided." }} <br>
+                <strong>Joined on:</strong> {{ profile.user.date_joined|date:"d M Y" }}
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+{%endblock%}

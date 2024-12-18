@@ -1,0 +1,51 @@
+{% extends 'baserent.html' %}
+
+{% block main_block1 %}
+<body>
+
+<div class="container my-5">
+    <h2>{{ vehicle.title }} - Full Details</h2>
+    
+    <div class="row">
+        <!-- Vehicle Details -->
+        <div class="col-md-6">
+            <h4>Vehicle Details</h4>
+            <p><strong>Brand:</strong> {{ vehicle.title }}</p>
+            <p><strong>Model:</strong> {{ vehicle.title }}</p>
+            <p><strong>Price per Day:</strong> ${{ vehicle.price }}</p>
+            <p><strong>Category:</strong> {{ vehicle.category.category_type }}</p>
+            <p><strong>Vehicle Type:</strong> {{ vehicle.vehicle_type }}</p>
+            <p><strong>Mileage/Range:</strong> {{ vehicle.mileage_or_range }} km</p>
+        </div>
+
+        <!-- Owner Details -->
+        <div class="col-md-6">
+            <h4>Owner Details</h4>
+            <p><strong>Name:</strong> {{ vehicle.owner.username }}</p>
+            <p><strong>Email:</strong> {{ vehicle.owner.email }}</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Booking Dates -->
+    <h4>Booking Dates</h4>
+    <p><strong>Booking Start Date:</strong> {{ start_date }}</p>
+    <p><strong>Booking End Date:</strong> {{ end_date }}</p>
+
+    <hr>
+
+    <!-- Total Price -->
+    <h4>Total Price</h4>
+    <p><strong>Total Price:</strong> ${{ total_price }}</p>
+
+    <hr>
+
+    <!-- Checkout Button -->
+    <a href="#" class="btn btn-success">Checkout</a>
+
+</div>
+
+{% endblock %}
+
+</body>

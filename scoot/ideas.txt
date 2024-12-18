@@ -1,0 +1,64 @@
+# vehicle_list.html
+# <a href="{% url 'vehicle_full_detail' vehicle.id %}" class="btn btn-primary">View Details</a>
+
+
+vehiclefull_details.html
+<!-- <a href="{% url 'total-price' vehicle.id %}?start_date={{ start_date }}&end_date={{ end_date }}" class="btn btn-success"> -->
+
+{% extends 'baserent.html' %}
+
+{% block main_block1 %}
+<body>
+<div class="container my-5">
+    <h2>{{ vehicle.title }}</h2>
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-4">
+                {% if vehicle.picture %}
+                    <img src="{{ vehicle.picture.url }}" class="img-fluid rounded-start" alt="{{ vehicle.title }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/300" class="img-fluid rounded-start" alt="No Image Available">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ vehicle.title }}</h5>
+                    <p class="card-text">
+                        <strong>Description:</strong> {{ vehicle.description }} <br>
+                        <strong>Price:</strong> ${{ vehicle.price }} per day <br>
+                        <strong>Mileage/Range:</strong> {{ vehicle.mileage_or_range }} km <br>
+                        <strong>Category:</strong> {{ vehicle.category.category_type }} <br>
+                        <strong>Vehicle Type:</strong> {{ vehicle.vehicle_type }} <br>
+                    </p>
+
+                    {% if owner %}
+                        <h6>Owner Information:</h6>
+                        <p>
+                            <strong>Username:</strong> {{ owner.username }} <br>
+                            <strong>Email:</strong> {{ owner.email }} <br>
+                            <strong>Phone:</strong> {{ owner.profile.phone }}
+                        </p>
+                    {% else %}
+                        <p>Owner information is not available.</p>
+                    {% endif %}
+
+                    {% if start_date and end_date %}
+                        <!-- Show link to check price if dates are already provided -->
+
+                        
+                            
+                            <a href="{% url 'total-price' vehicle.id %}?start_date={{ start_date }}&end_date={{ end_date }}" class="btn btn-success"></a>
+                            Check Price
+                        </a>
+                    {% else %}
+                        <!-- Show an error or guidance if dates are missing -->
+                        <div class="alert alert-danger mt-3">
+                            Please select both start and end dates before checking the price.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

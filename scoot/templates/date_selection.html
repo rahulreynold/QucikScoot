@@ -1,0 +1,25 @@
+{% extends 'baserent.html' %}
+
+{% block main_block1 %}
+<body>
+    <div class="container my-5">
+        <h2>Select Booking Dates</h2>
+        <form method="get" action="{%url 'vehicle-all'%}">
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <strong>Error!</strong> Please correct the following:
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Search Vehicles</button>
+        </form>
+    </div>
+</body>
+{% endblock %}
