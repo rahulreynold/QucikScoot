@@ -1,0 +1,19 @@
+<!-- In your checkout.html -->
+
+<form method="post">
+    {% csrf_token %}
+    
+    <h2>Checkout</h2>
+    <p><strong>Vehicle:</strong> {{ vehicle.title }}</p>
+    <p><strong>Price per Day:</strong> ${{ vehicle.price }}</p>
+    <p><strong>Booking Start Date:</strong> {{ start_date }}</p>
+    <p><strong>Booking End Date:</strong> {{ end_date }}</p>
+    <p><strong>Total Price:</strong> ${{ total_price }}</p>
+
+    <!-- Hidden fields to pass data to the server -->
+    <input type="hidden" name="start_date" value="{{ start_date }}">
+    <input type="hidden" name="end_date" value="{{ end_date }}">
+    <input type="hidden" name="total_price" value="{{ total_price }}">
+
+    <button type="submit" class="btn btn-success">Confirm Booking</button>
+</form>

@@ -133,8 +133,15 @@ import os
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+
 # USE_TZ = True
 # TIME_ZONE = 'UTC'  # You can set your desired time zone here
+
+# Razorpay API Credentials
+RAZORPAY_KEY_ID = "rzp_test_hIMKNhJU9oHOAV"
+RAZORPAY_KEY_SECRET = "PZyRgKWu7WyoiNfdBvkhdESB"
+
 
 
 

@@ -26,8 +26,16 @@ urlpatterns = [
     path('signin/',views.SignInView.as_view(),name='signin'),
     path("signout/",views.SignoutView.as_view(), name="signout"),
     path('owner-dashboard/', views.owner_dashboard_view, name='owner_dashboard'),
+
     path("profile/edit/",views.UserProfileEditView.as_view(), name="profile-edit"),
     path("profile/view/",views.UserProfileView.as_view(), name="profile-view"),
+
+    path("renterprofile/edit/",views.RenterProfileEditView.as_view(), name="renterprofile-edit"),
+    path("renterprofile/view/",views.RenterProfileView.as_view(), name="renterprofile-view"),
+
+    path("aboutowner/",views.AboutUsView.as_view(), name="about-owner"),
+    path("contactus/",views.ContactUsView.as_view(), name="contact-us"),
+
     path('renter-dashboard/', views.renter_dashboard_view, name='renter-dashboard'),
     path('vehicle/add/',views.TwoWheelerCreateView.as_view(),name="two-wheeler-add"),
     path('vehicle/list/',views.MyTwoWheelerListView.as_view(),name="two-wheeler-list"),
@@ -51,7 +59,15 @@ urlpatterns = [
     path('renter/date/',views.AvailableDateView.as_view(), name='select_dates'),
     # path('booking/<int:pk>/total-price/',views.TotalPriceView.as_view(), name='total-price'),
     path('vehicle/<int:pk>/total-price/',views.TotalPriceView.as_view(), name='total-price'),
+    # path('checkout/<int:pk>/',views.CheckOutView.as_view(), name='checkout'),
+    # path('checkout/',views.CheckOutView.as_view(), name='checkout'),
+    # path('payment-verify/',views.PaymentVerification.as_view(), name='payment-verify'),
+     path('orders/', views.MyOrderView.as_view(), name='my-orders'),
+
+
+     path('checkout/<int:pk>/', views.CheckoutView.as_view(), name='checkout'),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 

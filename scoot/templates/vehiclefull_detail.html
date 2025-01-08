@@ -30,8 +30,8 @@
 
     <!-- Booking Dates -->
     <h4>Booking Dates</h4>
-    <p><strong>Booking Start Date:</strong> {{ start_date }}</p>
-    <p><strong>Booking End Date:</strong> {{ end_date }}</p>
+    <p><strong>Booking Start Date:</strong> {{ start_date|default:"Not selected" }}</p>
+    <p><strong>Booking End Date:</strong> {{ end_date|default:"Not selected" }}</p>
 
     <hr>
 
@@ -42,7 +42,10 @@
     <hr>
 
     <!-- Checkout Button -->
-    <a href="#" class="btn btn-success">Checkout</a>
+    <!-- <a href="#" class="btn btn-success">Checkout</a> -->
+    <a href="{% url 'checkout' pk=vehicle.pk %}?start_date={{ start_date }}&end_date={{ end_date }}" class="btn btn-success">Checkout</a>
+    
+
 
 </div>
 

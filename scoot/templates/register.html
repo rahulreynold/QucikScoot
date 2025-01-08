@@ -4,19 +4,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>QuickScoot - Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            /* Two background images */
+            background: url('https://img.freepik.com/free-vector/man-woman-riding-bike-city_74855-10866.jpg') left center no-repeat, 
+                        url('https://www.shutterstock.com/image-vector/holiday-vector-concept-young-couple-600nw-2142261407.jpg') right center no-repeat;
+            background-size: 40%, 40%; /* Make both background images smaller */
+            background-attachment: fixed;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 450px; /* Keep the container size */
+            margin: 0 auto; /* Center the container */
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            margin-top: 50px; /* Add some margin on top to avoid touching the top edge */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #333;
+            background-color: #ffffff; /* White background for label */
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 5px;
+            height: 45px;
+            background-color: #ffffff; /* Bright background for input boxes */
+            color: #333;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .made-by {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.8em;
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <h2>Register</h2>
+        <h2>Register for QuickScoot</h2>
         <form action="" method="post">
             {% csrf_token %}
-            {{ form }}
-            <button type="submit">Register</button>
+            <div class="mb-3">
+                <label for="id_username" class="form-label">Username</label>
+                <input type="text" id="id_username" name="username" class="form-control" placeholder="Enter your username">
+            </div>
+            <div class="mb-3">
+                <label for="id_email" class="form-label">Email</label>
+                <input type="email" id="id_email" name="email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label for="id_user_role" class="form-label">Register as</label>
+                <select id="id_user_role" name="user_role" class="form-select">
+                    <option value="" selected disabled>Choose your role</option>
+                    <option value="customer">Customer - Rent scooters or bikes</option>
+                    <option value="owner">Vehicle Owner - List scooters or bikes</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="id_password1" class="form-label">Password</label>
+                <input type="password" id="id_password1" name="password1" class="form-control" placeholder="Enter your password">
+            </div>
+            <div class="mb-3">
+                <label for="id_password2" class="form-label">Confirm Password</label>
+                <input type="password" id="id_password2" name="password2" class="form-control" placeholder="Confirm your password">
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-user-plus"></i> Register</button>
         </form>
+        <div class="footer mt-3">
+            Already have an account? <a href="{% url 'signin' %}">Login here</a>.
+        </div>
     </div>
 
+    <div class="made-by">
+        <p>Made by Rahul J Reynold</p>
+    </div>
 </body>
 
 </html>

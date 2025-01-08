@@ -1,0 +1,52 @@
+{% extends 'baserent.html' %}
+
+{% block main_block1 %}
+    <div class="container mt-5">
+        <h2>My Orders</h2>
+        {% for booking in bookings %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Booking ID: {{ booking.order_id }}</h5>
+                    <p><strong>Vehicle:</strong> {{ booking.two_wheeler.title }}</p>
+                    <p><strong>Category:</strong> {{ booking.two_wheeler.category.category_type }}</p>
+                    <p><strong>Start Date:</strong> {{ booking.start_date|date:"F j, Y, g:i a" }}</p>
+                    <p><strong>End Date:</strong> {{ booking.end_date|date:"F j, Y, g:i a" }}</p>
+                    <p><strong>Total Price:</strong> ₹{{ booking.total_price }}</p>
+
+                    {% if booking.status == "pending" %}
+                        <span class="badge bg-warning">Pending</span>
+                    {% elif booking.status == "confirmed" %}
+                        <span class="badge bg-success">Confirmed</span>
+                    {% elif booking.status == "completed" %}
+                        <span class="badge bg-secondary">Completed</span>
+                    {% endif %}
+
+                    <hr>
+
+                    <h6>Payment Status:</h6>
+                    {% if booking.payment_set.exists %}
+                        {% for payment in booking.payment_set.all %}
+                            <p><strong>Status:</strong> 
+                                {% if payment.is_paid %}
+                                    Paid
+                                {% else %}
+                                    Not Paid
+                                {% endif %}
+                            </p>
+                            <p><strong>Payment Method:</strong> {{ payment.payment_type }}</p>
+                            <p><strong>Amount:</strong> ₹{{ payment.amount }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>No payment record found.</p>
+                    {% endif %}
+
+                    <hr>
+
+                    <a href="{% url 'booking-detail' booking.id %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>You have no bookings yet.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

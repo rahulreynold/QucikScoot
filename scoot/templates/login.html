@@ -1,20 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login - QuickScoot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            /* Use the new background image */
+            background: url('https://img.freepik.com/free-vector/vehicle-sale-concept-illustration_114360-2082.jpg') right center no-repeat;
+            background-size: 50%; /* Adjust the image size */
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .container {
+            max-width: 400px; /* Adjusted the width to make the box smaller */
+            margin-left: 5%; /* Keep the box on the left side */
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            margin-top: 50px; /* Add some margin from the top */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #333;
+            background-color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            height: 40px; /* Adjusted the height of the form fields */
+            background-color: #ffffff;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .made-by {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.8em;
+            color: #fff;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
-        <h2>Login</h2>
+        <h2>Login to QuickScoot</h2>
         <form method="post" action="">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Login</button>
         </form>
-        
+        <div class="footer mt-3">
+            Don't have an account? <a href="{% url 'signup' %}">Register here</a>.
+        </div>
     </div>
-    
+
+    <div class="made-by">
+        <p>Made by Rahul J Reynold</p>
+    </div>
 </body>
+
 </html>

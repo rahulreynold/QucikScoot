@@ -61,7 +61,6 @@ class TwoWheeler(models.Model):
         return self.title
 
 
-# Booking model for tracking vehicle rentals
 class Booking(models.Model):
     renter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookings')
     two_wheeler = models.ForeignKey(TwoWheeler, on_delete=models.CASCADE, related_name='bookings')
@@ -74,6 +73,7 @@ class Booking(models.Model):
         default="pending"
     )
     order_id = models.CharField(max_length=100, unique=True, blank=True, null=True)  # Unique order ID
+    is_order_placed = models.BooleanField(default=False)  # Add this field
 
     def save(self, *args, **kwargs):
         if not self.order_id:  # Generate order ID if it doesn't already exist
@@ -82,6 +82,7 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"Booking by {self.renter.username} - Order ID: {self.order_id}"
+
 
 
 # Payment model for handling payments associated with bookings

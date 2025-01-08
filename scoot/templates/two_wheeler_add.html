@@ -1,16 +1,58 @@
-{%extends 'baseowner.html'%}
+{% extends 'baseowner.html' %}
 
-{%block main_block%}
+{% block main_block %}
+<main class="container my-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+            <h1 class="h4 mb-0">Add Your Two-Wheeler Details</h1>
+        </div>
+        <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
 
-<body>
-    <h1 class="my-4">Welcome, {{ user.username }} (Renter)</h1>
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Add Vehicle</button>
-    </form>
-    
+                <div class="mb-3">
+                    <label for="id_title" class="form-label">Title</label>
+                    {{ form.title }}
+                </div>
 
-</body>
+                <div class="mb-3">
+                    <label for="id_description" class="form-label">Description</label>
+                    {{ form.description }}
+                </div>
 
-{%endblock%}
+                <div class="mb-3">
+                    <label for="id_number_plate" class="form-label">Number Plate</label>
+                    {{ form.number_plate }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_picture" class="form-label">Picture</label>
+                    {{ form.picture }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_price" class="form-label">Price</label>
+                    {{ form.price }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_category" class="form-label">Category</label>
+                    {{ form.category }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_vehicle_type" class="form-label">Vehicle Type</label>
+                    {{ form.vehicle_type }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_mileage_or_range" class="form-label">Mileage or Range</label>
+                    {{ form.mileage_or_range }}
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}

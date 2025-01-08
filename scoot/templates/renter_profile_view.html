@@ -1,8 +1,8 @@
-{% extends 'baseowner.html' %}
+{% extends 'baserent.html' %}
 
 {% block main_block %}
 <div class="container my-5">
-    <h1 class="text-center">Profile Details</h1>
+    <h1 class="text-center">Renter Profile Details</h1>
     <div class="card shadow-sm mt-4">
         <div class="card-body text-center">
             <h5 class="card-title">Welcome, {{ profile.owner.username }}</h5>
@@ -18,7 +18,7 @@
                 <strong>Joined on:</strong> {{ profile.owner.date_joined|date:"d M Y" }}
             </p>
             <!-- Edit Profile Button -->
-            <a href="{% url 'profile-edit' %}" class="btn btn-primary mt-3">Edit Profile</a>
+            <a href="{% url 'renterprofile-edit' %}" class="btn btn-primary mt-3">Edit Profile</a>
         </div>
     </div>
 </div>

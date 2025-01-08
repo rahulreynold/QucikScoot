@@ -1,6 +1,6 @@
-{%extends 'baseowner.html'%}
+{% extends 'baseowner.html' %}
 
-{%block main_block%}
+{% block main_block %}
 <body>
 
     <div class="container">
@@ -8,34 +8,52 @@
 
         <!-- Owner specific content -->
         <div class="row">
-            <div class="col-md-3">
-                <h3>Manage Your Two-Wheelers</h3>
-                <p>Here you can add, update or remove your two-wheelers available for rent.</p>
-                <a href="{%url 'two-wheeler-add'%}" class="btn btn-primary">Add New Two-Wheeler</a>
-            </div>
-            <div class="col-md-3">
-                <h3>List Your Two-Wheelers</h3>
-                <p>Your Two vheelers</p>
-                <a href="{%url 'two-wheeler-list'%}" class="btn btn-primary">Add New Two-Wheeler</a>
+            <!-- Add Your Vehicles -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3>Add Your Vehicles</h3>
+                        <p>Here you can add new vehicles for rent. Fill in the details of the two-wheeler and upload relevant photos.</p>
+                        <a href="{% url 'two-wheeler-add' %}" class="btn btn-primary btn-lg">Add New Two-Wheeler</a>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-md-3">
-                <h3>View Bookings</h3>
-                <p>Review the bookings for your vehicles.</p>
-                <a href="#" class="btn btn-info">View Bookings</a>
+            <!-- See Your Vehicles -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3>Your Two-Wheelers</h3>
+                        <p>Here is a list of all the two-wheelers you have available for rent:</p>
+                        {% if user.two_wheelers.all %}
+                            <ul>
+                                {% for vehicle in user.two_wheelers.all %}
+                                    <li>View your Vehicle{{ vehicle.name }}{{ vehicle.status }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No vehicles listed yet. Start adding your two-wheelers today!</p>
+                        {% endif %}
+                        <a href="{% url 'two-wheeler-list' %}" class="btn btn-primary btn-lg">See Your Vehicles</a>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <hr>
-
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Your Earnings</h3>
-                <p>Total earnings from rentals: ${{ total_earnings }}</p>
+            <!-- View Your Profile -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3>View Your Profile</h3>
+                        <p>Review and update your personal information.</p>
+                        
+                        <a href="{% url 'profile-view' %}" class="btn btn-info btn-lg">View Profile</a>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-{%endblock%}
+
+{% endblock %}
