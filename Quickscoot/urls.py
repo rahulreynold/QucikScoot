@@ -62,10 +62,14 @@ urlpatterns = [
     # path('checkout/<int:pk>/',views.CheckOutView.as_view(), name='checkout'),
     # path('checkout/',views.CheckOutView.as_view(), name='checkout'),
     # path('payment-verify/',views.PaymentVerification.as_view(), name='payment-verify'),
-     path('orders/', views.MyOrderView.as_view(), name='my-orders'),
+    #  path('orders/', views.MyOrderView.as_view(), name='my-orders'),
 
 
-     path('checkout/<int:pk>/', views.CheckoutView.as_view(), name='checkout'),
+    #  path('checkout/<int:pk>/', views.CheckoutView.as_view(), name='checkout'),
+    # .........
+    path('book/<int:pk>/', views.BookVehicleView.as_view(), name='book_vehicle'),
+
+    path('booking/success/<int:pk>/', views.BookingSuccessView.as_view(), name='booking_confirmation'),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

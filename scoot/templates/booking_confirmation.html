@@ -1,0 +1,10 @@
+<form method="post" action="{% url 'book_vehicle' vehicle.id %}">
+    {% csrf_token %}
+    <label for="start_date">Start Date:</label>
+    <input type="datetime-local" id="start_date" name="start_date" required>
+
+    <label for="end_date">End Date:</label>
+    <input type="datetime-local" id="end_date" name="end_date" required>
+
+    <button type="submit" class="btn btn-success">Confirm Booking</button>
+</form>

@@ -289,17 +289,6 @@ class AvailableDateView(View):
         return render(request, self.template_name, {'form': form})
     
 
-# #workind 
-# class VehicleListView(View):
-#     template_name = "vehicle_list.html"
-
-#     def get(self, request, *args, **kwargs):
-#         # Fetch all vehicles available for rent
-#         vehicles = TwoWheeler.objects.all()
-
-#         # Pass the vehicles to the template
-#         return render(request, self.template_name, {'vehicles': vehicles})
-
 from datetime import datetime
 
 class VehicleListView(View):
@@ -441,287 +430,247 @@ class TotalPriceView(View):
         return render(request, self.template_name, context)
 
 
-# import razorpay
-# from django.views import View
-# from django.shortcuts import render
-# from django.db.models import Sum
-# from django.conf import settings  # Ensure `KEY_ID` and `KEY_SECRET` are in your settings
-# from django.http import JsonResponse
-# from .models import Booking, TwoWheeler
-
-# class CheckOutView(View):
-#     template_name = "checkout.html"
-
-#     def get(self, request, *args, **kwargs):
-#         # Get Razorpay keys from settings
-#         KEY_ID = settings.RAZORPAY_KEY_ID
-#         KEY_SECRET = settings.RAZORPAY_KEY_SECRET
-
-#         # Initialize Razorpay client
-#         client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
-
-#         # Calculate the total booking amount for the user
-#         booking_items = Booking.objects.filter(renter=request.user, is_order_placed=False)
-#         print(booking_items)
-#         total_amount = booking_items.aggregate(total=Sum("total_price")).get("total") or 0
-
-#         if total_amount == 0:
-#             return JsonResponse({"error": "No items in the booking list to checkout."}, status=400)
-
-#         # Create Razorpay payment order
-#         data = {
-#             "amount": total_amount * 100,  # Razorpay accepts amount in paise
-#             "currency": "INR",
-#             "receipt": f"order_rcptid_{request.user.id}",
-#         }
-#         payment = client.order.create(data=data)
-#         order_id = payment.get("id")
-
-#         # Create an Order instance in the database
-#         order_object = Booking.objects.create(
-#             order_id=order_id, user=request.user, total_amount=total_amount
-#         )
-
-#         # Mark items as ordered
-#         for booking in booking_items:
-#             booking.is_order_placed = True
-#             booking.order = order_object
-#             booking.save()
-
-#         # Pass data to the template
-#         return render(
-#             request,
-#             self.template_name,
-#             {"key_id": KEY_ID, "amount": total_amount, "order_id": order_id},
-#         )
-
-
-# import razorpay
-# from django.views import View
-# from django.shortcuts import redirect
-# from django.conf import settings
-# from .models import Booking
-
-# class PaymentVerification(View):
-#     def post(self, request, *args, **kwargs):
-#         KEY_ID = settings.RAZORPAY_KEY_ID
-#         KEY_SECRET = settings.RAZORPAY_KEY_SECRET
-#         client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
-
-#         try:
-#             client.utility.verify_payment_signature(request.POST)
-#             order_id = request.POST.get("razorpay_order_id")
-#             Booking.objects.filter(order_id=order_id).update(is_paid=True)
-#             print("Payment verification successful.")
-#         except:
-#             print("Payment verification failed.")
-
-#         return redirect("orders")
-
-# import razorpay
-# from django.views import View
-# from django.shortcuts import render
-# from django.db.models import Sum
-# from django.conf import settings  # Ensure `KEY_ID` and `KEY_SECRET` are in your settings
-# from django.http import JsonResponse
-# from .models import Booking, TwoWheeler
-
-# class CheckOutView(View):
-#     template_name = "checkout.html"
-
-#     def get(self, request, *args, **kwargs):
-#         # Get Razorpay keys from settings
-#         KEY_ID = settings.RAZORPAY_KEY_ID
-#         KEY_SECRET = settings.RAZORPAY_KEY_SECRET
-
-#         # Initialize Razorpay client
-#         client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
-
-#         # Calculate the total booking amount for the user
-#         booking_items = Booking.objects.filter(renter=request.user, is_order_placed=False)
-#         print(booking_items)
-#         total_amount = booking_items.aggregate(total=Sum("total_price")).get("total") or 0
-
-#         if total_amount == 0:
-#             return JsonResponse({"error": "No items in the booking list to checkout."}, status=400)
-
-#         # Create Razorpay payment order
-#         data = {
-#             "amount": total_amount * 100,  # Razorpay accepts amount in paise
-#             "currency": "INR",
-#             "receipt": f"order_rcptid_{request.user.id}",
-#         }
-#         payment = client.order.create(data=data)
-#         order_id = payment.get("id")
-
-#         # Create an Order instance in the database
-#         order_object = Booking.objects.create(
-#             order_id=order_id, user=request.user, total_amount=total_amount
-#         )
-
-#         # Mark items as ordered
-#         for booking in booking_items:
-#             booking.is_order_placed = True
-#             booking.order = order_object
-#             booking.save()
-
-#         # Pass data to the template
-#         return render(
-#             request,
-#             self.template_name,
-#             {"key_id": KEY_ID, "amount": total_amount, "order_id": order_id},
-#         )
-
-
-# import razorpay
-# from django.views import View
-# from django.shortcuts import redirect
-# from django.conf import settings
-# from .models import Booking
-
-# class PaymentVerification(View):
-#     def post(self, request, *args, **kwargs):
-#         KEY_ID = settings.RAZORPAY_KEY_ID
-#         KEY_SECRET = settings.RAZORPAY_KEY_SECRET
-#         client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
-
-#         try:
-#             client.utility.verify_payment_signature(request.POST)
-#             order_id = request.POST.get("razorpay_order_id")
-#             Booking.objects.filter(order_id=order_id).update(is_paid=True)
-#             print("Payment verification successful.")
-#         except:
-#             print("Payment verification failed.")
-
-#         return redirect("orders")
-    
-# from django.shortcuts import get_object_or_404, redirect
+# from django.shortcuts import render, redirect
 # from django.contrib import messages
-# from django.views import View
-# from .models import WishList, TwoWheeler
+# from django.utils import timezone
+# from .models import Booking, TwoWheeler
+# from .forms import BookingForm
 
-
-# class AddToWishListView(View):
+# class BookingView(View):
+#     template_name = 'booking_confirmation.html'
 
 #     def get(self, request, *args, **kwargs):
-#         # Get the TwoWheeler object based on the pk (primary key) passed in the URL
-#         two_wheeler_id = kwargs.get("pk")
-#         two_wheeler = get_object_or_404(TwoWheeler, id=two_wheeler_id)
+#         vehicle_id = kwargs.get('pk')
+#         vehicle = get_object_or_404(TwoWheeler, id=vehicle_id)
 
-#         try:
-#             # Check if the user already has a wishlist, if not, create one
-#             wishlist, created = WishList.objects.get_or_create(owner=request.user)
+#         # Display the form with the vehicle details and no total price yet
+#         form = BookingForm()
 
-#             # If there's already an item in the wishlist, update it
-#             wishlist.total_price = two_wheeler.price
-#             wishlist.save()
+#         return render(request, self.template_name, {
+#             'vehicle': vehicle,
+#             'form': form,
+#         })
 
-#             # Add the selected TwoWheeler to the wishlist (one item only allowed)
-#             wishlist_item, created = wishlist.wishlist_item.get_or_create(
-#                 project_object=two_wheeler,
-#                 is_order_placed=False
+#     def post(self, request, *args, **kwargs):
+#         vehicle_id = kwargs.get('pk')
+#         vehicle = get_object_or_404(TwoWheeler, id=vehicle_id)
+
+#         form = BookingForm(request.POST)
+        
+#         if form.is_valid():
+#             start_date = form.cleaned_data['start_date']
+#             end_date = form.cleaned_data['end_date']
+
+#             # Calculate total price based on the vehicle price
+#             delta = end_date - start_date
+#             total_price = vehicle.price * delta.days
+
+#             # Create and save the booking
+#             booking = Booking(
+#                 user=request.user,
+#                 two_wheeler=vehicle,
+#                 start_date=start_date,
+#                 end_date=end_date,
+#                 total_price=total_price
 #             )
+#             booking.save()
 
-#             # Optional: Update the total price if the item has been added successfully
-#             wishlist.total_price = two_wheeler.price
-#             wishlist.save()
+#             # Redirect to a confirmation page or display success message
+#             messages.success(request, "Booking confirmed successfully!")
+#             return redirect('booking_confirmation', pk=booking.id)
 
-#             messages.success(request, "Successfully added the item to your wishlist.")
-#             print("Successfully added to wishlist.")
-
-#         except Exception as e:
-#             messages.error(request, "Failed to add the item to your wishlist.")
-#             print(f"Error: {e}")
-
-#         return redirect("index")
-
-# In your views.py
-
-# In your views.py
+#         # If the form is not valid, return the same page with error messages
+#         return render(request, self.template_name, {
+#             'vehicle': vehicle,
+#             'form': form,
+#         })
 
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views import View
 from django.contrib import messages
-from .models import Booking, TwoWheeler
-from django.utils import timezone
-import uuid
+from datetime import datetime
+from .models import TwoWheeler, Booking
 
-class CheckoutView(View):
+class BookVehicleView(View):
+    template_name = 'booking_confirmation.html'  # Adjust the template name as needed
+
     def get(self, request, *args, **kwargs):
-        pk = kwargs.get('pk')  # Get the vehicle PK from URL
-        vehicle = get_object_or_404(TwoWheeler, pk=pk)  # Get the vehicle object by pk
-
-        # Retrieve start and end dates from the request
-        start_date = request.GET.get('start_date')
-        end_date = request.GET.get('end_date')
-
-        # Process the dates and calculate the total price
-        total_price = self.calculate_total_price(vehicle.price, start_date, end_date)
-
-        context = {
-            'vehicle': vehicle,
-            'start_date': start_date,
-            'end_date': end_date,
-            'total_price': total_price
-        }
-
-        return render(request, 'checkout.html', context)
+        # Fetch vehicle details to display in the booking form
+        vehicle_id = kwargs.get('pk')
+        vehicle = get_object_or_404(TwoWheeler, id=vehicle_id)
+        return render(request, self.template_name, {'vehicle': vehicle})
 
     def post(self, request, *args, **kwargs):
-        pk = kwargs.get('pk')  # Get the vehicle PK from URL
-        vehicle = get_object_or_404(TwoWheeler, pk=pk)  # Get the vehicle object by pk
+        vehicle_id = kwargs.get('pk')  # Vehicle ID from the URL
+        vehicle = get_object_or_404(TwoWheeler, id=vehicle_id)
+
+        # Get form data
+        start_date_str = request.POST.get('start_date')
+        end_date_str = request.POST.get('end_date')
+
+        # Validate start and end dates
+        if not start_date_str or not end_date_str:
+            messages.error(request, "Start date and end date are required.")
+            return render(request, self.template_name, {'vehicle': vehicle})
+
+        try:
+            # Parse the dates
+            start_date = datetime.strptime(start_date_str, '%Y-%m-%dT%H:%M')  # Adjust format as needed
+            end_date = datetime.strptime(end_date_str, '%Y-%m-%dT%H:%M')
+
+            # Ensure valid date range
+            if start_date >= end_date:
+                raise ValueError("Start date must be before end date.")
+            if start_date < datetime.now():
+                raise ValueError("Start date cannot be in the past.")
+
+            # Calculate total price
+            total_days = (end_date - start_date).days + 1  # Including the last day
+            total_price = total_days * vehicle.price
+
+            # Debugging prints
+            print("Booking Inputs:")
+            print("Renter:", request.user)
+            print("TwoWheeler:", vehicle)
+            print("Start Date:", start_date)
+            print("End Date:", end_date)
+            print("Total Price:", total_price)
+
+            # Save the booking
+            booking = Booking.objects.create(
+                renter=request.user,  # Ensure the user is authenticated
+                two_wheeler=vehicle,
+                start_date=start_date,
+                end_date=end_date,
+                total_price=total_price,
+                status="pending",  # Default status
+                is_order_placed=False  # Default value
+            )
+
+            # Redirect or display a success message
+            messages.success(request, "Booking confirmed successfully!")
+            return redirect('booking_confirmation', pk=booking.id)
+
+        except ValueError as e:
+            messages.error(request, str(e))
+            return render(request, self.template_name, {'vehicle': vehicle})
+
         
-        start_date = request.POST.get('start_date')
-        end_date = request.POST.get('end_date')
-        total_price = float(request.POST.get('total_price'))
-        
-        # Create a booking instance
-        booking = Booking(
-            renter=request.user,  # Set the current user as the renter
-            two_wheeler=vehicle,  # Set the selected vehicle
-            start_date=start_date,  # Set the start date
-            end_date=end_date,  # Set the end date
-            total_price=total_price,  # Set the total price
-            status='pending',  # Default status
-            order_id=f"ORD-{uuid.uuid4().hex[:8].upper()}",  # Generate unique order ID
-            is_order_placed=True  # Mark the order as placed
-        )
 
-        # Save the booking instance to the database
-        booking.save()
-
-        # Display a success message
-        messages.success(request, f"Booking successful! Your order ID is {booking.order_id}")
-        
-        return redirect('booking_confirmation', order_id=booking.order_id)
-
-    def calculate_total_price(self, price_per_day, start_date, end_date):
-        # Convert start and end date to datetime objects
-        start_date = timezone.datetime.strptime(start_date, '%Y-%m-%d')
-        end_date = timezone.datetime.strptime(end_date, '%Y-%m-%d')
-
-        # Calculate the number of days
-        num_days = (end_date - start_date).days
-
-        # Calculate total price
-        total_price = price_per_day * num_days
-        return total_price
-
-
-
-
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import View
-from .models import Booking, Payment
+from .models import Booking
 
-class MyOrderView(View):
-    template_name = "my_order.html"
+
+class BookingSuccessView(View):
+    template_name = 'booking_success.html'
 
     def get(self, request, *args, **kwargs):
-        # Fetch all bookings for the logged-in user
-        bookings = Booking.objects.filter(renter=request.user).order_by('-start_date')
+        booking_id = kwargs.get('pk')  # Booking ID from the URL
+        booking = get_object_or_404(Booking, id=booking_id)
 
-        # Pass the bookings to the template
-        return render(request, self.template_name, {"bookings": bookings})
+        # Print data to the terminal
+        print("Booking ID:", booking.id)
+        print("Vehicle Title:", booking.two_wheeler.title)
+        print("Start Date:", booking.start_date)
+        print("End Date:", booking.end_date)
+        print("Total Price:", booking.total_price)
+        print("Owner Name:", booking.two_wheeler.owner.username)
+        print("Owner Email:", booking.two_wheeler.owner.email)
+
+        return render(request, self.template_name, {'booking': booking})
+
+
+
+
+
+
+
+
+
+# from django.shortcuts import render, get_object_or_404, redirect
+# from django.contrib import messages
+# from .models import Booking, TwoWheeler
+# from django.utils import timezone
+# import uuid
+
+# class CheckoutView(View):
+#     def get(self, request, *args, **kwargs):
+#         pk = kwargs.get('pk')  # Get the vehicle PK from URL
+#         vehicle = get_object_or_404(TwoWheeler, pk=pk)  # Get the vehicle object by pk
+
+#         # Retrieve start and end dates from the request
+#         start_date = request.GET.get('start_date')
+#         end_date = request.GET.get('end_date')
+
+#         # Process the dates and calculate the total price
+#         total_price = self.calculate_total_price(vehicle.price, start_date, end_date)
+
+#         context = {
+#             'vehicle': vehicle,
+#             'start_date': start_date,
+#             'end_date': end_date,
+#             'total_price': total_price
+#         }
+
+#         return render(request, 'checkout.html', context)
+
+#     def post(self, request, *args, **kwargs):
+#         pk = kwargs.get('pk')  # Get the vehicle PK from URL
+#         vehicle = get_object_or_404(TwoWheeler, pk=pk)  # Get the vehicle object by pk
+        
+#         start_date = request.POST.get('start_date')
+#         end_date = request.POST.get('end_date')
+#         total_price = float(request.POST.get('total_price'))
+        
+#         # Create a booking instance
+#         booking = Booking(
+#             renter=request.user,  # Set the current user as the renter
+#             two_wheeler=vehicle,  # Set the selected vehicle
+#             start_date=start_date,  # Set the start date
+#             end_date=end_date,  # Set the end date
+#             total_price=total_price,  # Set the total price
+#             status='pending',  # Default status
+#             order_id=f"ORD-{uuid.uuid4().hex[:8].upper()}",  # Generate unique order ID
+#             is_order_placed=True  # Mark the order as placed
+#         )
+
+#         # Save the booking instance to the database
+#         booking.save()
+
+#         # Display a success message
+#         messages.success(request, f"Booking successful! Your order ID is {booking.order_id}")
+        
+#         return redirect('booking_confirmation', order_id=booking.order_id)
+
+#     def calculate_total_price(self, price_per_day, start_date, end_date):
+#         # Convert start and end date to datetime objects
+#         start_date = timezone.datetime.strptime(start_date, '%Y-%m-%d')
+#         end_date = timezone.datetime.strptime(end_date, '%Y-%m-%d')
+
+#         # Calculate the number of days
+#         num_days = (end_date - start_date).days
+
+#         # Calculate total price
+#         total_price = price_per_day * num_days
+#         return total_price
+
+
+
+
+# from django.shortcuts import render
+# from django.views import View
+# from .models import Booking, Payment
+
+# class MyOrderView(View):
+#     template_name = "my_order.html"
+
+#     def get(self, request, *args, **kwargs):
+#         # Fetch all bookings for the logged-in user
+#         bookings = Booking.objects.filter(renter=request.user).order_by('-start_date')
+
+#         # Pass the bookings to the template
+#         return render(request, self.template_name, {"bookings": bookings})
 
 
 

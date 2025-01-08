@@ -41,15 +41,11 @@
 
     <hr>
 
-    <!-- Booking Form -->
-    <form method="post" action="{% url 'book_vehicle' vehicle.id %}">
-        {% csrf_token %}
-        <input type="hidden" name="start_date" value="{{ start_date }}">
-        <input type="hidden" name="end_date" value="{{ end_date }}">
-        <input type="hidden" name="total_price" value="{{ total_price }}">
+    <!-- Checkout Button -->
+    <!-- <a href="#" class="btn btn-success">Checkout</a> -->
+    <a href="{% url 'book_vehicle'  }" class="btn btn-success">Booknow</a>
+    
 
-        <button type="submit" class="btn btn-success">Book Now</button>
-    </form>
 
 </div>
 

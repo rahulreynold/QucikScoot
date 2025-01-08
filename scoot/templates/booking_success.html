@@ -1,0 +1,22 @@
+{% extends 'baserent.html' %}
+
+{% block main_block1 %}
+    <h2>Booking Successful!</h2>
+    <p>Thank you for your booking. Below are your booking details:</p>
+
+    <h4>Booking Details</h4>
+    <ul>
+        <li><strong>Vehicle:</strong> {{ booking.two_wheeler.title }}</li>
+        <li><strong>Start Date:</strong> {{ booking.start_date|date:"F j, Y, g:i a" }}</li>
+        <li><strong>End Date:</strong> {{ booking.end_date|date:"F j, Y, g:i a" }}</li>
+        <li><strong>Total Price:</strong> ${{ booking.total_price }}</li>
+    </ul>
+
+    <h4>Owner Details</h4>
+    <ul>
+        <li><strong>Name:</strong> {{ booking.two_wheeler.owner.username }}</li>
+        <li><strong>Email:</strong> {{ booking.two_wheeler.owner.email }}</li>
+    </ul>
+
+    <a href="{% url 'renter-dashboard' %}" class="btn btn-primary mt-3">Back to Home</a>
+{% endblock %}

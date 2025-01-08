@@ -154,3 +154,46 @@ class BookingDateForm(forms.Form):
 #         widgets = {
 #             'status': forms.Select(choices=Booking.STATUS_CHOICES),
         # }
+
+
+from django import forms
+from django.forms import DateInput
+from .models import Booking
+from datetime import datetime
+
+class BookingForm(forms.ModelForm):
+    start_date = forms.DateTimeField(
+        widget=forms.DateTimeInput(attrs={
+            'class': 'form-control',
+            'type': 'datetime-local',  # Makes use of the HTML5 datetime-local input type
+        }),
+        required=True
+    )
+    
+    end_date = forms.DateTimeField(
+        widget=forms.DateTimeInput(attrs={
+            'class': 'form-control',
+            'type': 'datetime-local',  # Makes use of the HTML5 datetime-local input type
+        }),
+        required=True
+    )
+
+    class Meta:
+        model = Booking
+        fields = ['start_date', 'end_date']
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+
+        # Ensure start date is before end date
+        if start_date and end_date:
+            if start_date >= end_date:
+                raise forms.ValidationError("Start date must be before end date.")
+
+            # Ensure start date is not in the past
+            if start_date < datetime.now():
+                raise forms.ValidationError("Start date cannot be in the past.")
+        
+        return cleaned_data
