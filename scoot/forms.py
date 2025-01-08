@@ -6,12 +6,44 @@ from datetime import datetime
 from django.utils import timezone
 
 # SignUpForm for new user registration
+# class SignUpForm(UserCreationForm):
+#     class Meta:
+#         model = User
+#         fields = ['username', 'email', 'password1', 'password2', 'user_role']
+#         widgets = {
+#             'user_role': forms.Select(choices=User.USER_ROLE_CHOICES),
+#         }
+
+
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from .models import User
+
 class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2', 'user_role']
         widgets = {
-            'user_role': forms.Select(choices=User.USER_ROLE_CHOICES),
+            'username': forms.TextInput(attrs={
+                'class': 'form-control',  # Apply Bootstrap form-control class
+                'placeholder': 'Enter your username',  # Add placeholder text
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',  # Bootstrap styling for email field
+                'placeholder': 'Enter your email',  # Add placeholder
+            }),
+            'password1': forms.PasswordInput(attrs={
+                'class': 'form-control',  # Bootstrap styling for password field
+                'placeholder': 'Enter your password',  # Add placeholder
+            }),
+            'password2': forms.PasswordInput(attrs={
+                'class': 'form-control',  # Bootstrap styling for password confirmation
+                'placeholder': 'Confirm your password',  # Add placeholder
+            }),
+            'user_role': forms.Select(choices=User.USER_ROLE_CHOICES, attrs={
+                'class': 'form-select',  # Bootstrap class for select input
+                'placeholder': 'Choose your role',  # Add placeholder
+            }),
         }
 
 # Login form for user authentication
